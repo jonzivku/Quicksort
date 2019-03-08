@@ -1,12 +1,19 @@
+// Jon Zivku, jzivku, jonzivku@me.com, main.cpp, Quicksort A03
+// Status: Working/Tested
+/* Quicksort is deceptively complex. No matter how many times I would walk
+ through partition I still wasnt quite able to visualize it. Ran into some
+ issues when I put in hoare - I forgot to update the function calls, and ended
+ up in an infinite loop, and then with an array that wasn't sorted. I think I
+ could've worked a little more carefully. Cool things: I wrote my first bash
+ script; to get the runtime of all of the test cases for medianOf3. 
+ */
+
 #include <iostream>
 #include <vector>
 #include <iomanip>
 #include <string>
 
 using std::vector;
-
-const int MEDOF3 = 11 ; // right - left > MEDOF3
-
 void quickSort(vector<int> &A, int size, bool flag);
 // wrapper function for quickSort.
 // pre-cond: a vector<int> A of size size, runs hoare version if flag is true
@@ -49,27 +56,23 @@ int medianOf3(vector<int> &A, int left, int center, int right);
 int main(int argc,char *argv[]){
   // check for commandline argument and set hoareFlag
   bool hoareFlag = false;
-  if(argc == 2 && std::string(argv[1]) == "-h"){
-    hoareFlag = true;
-  }
-  
-  // make the container
-  std::vector<int> sortMe;
-  
-  // fill the container
-  int temp;
-  while(std::cin >> temp){
-    sortMe.push_back(temp);
-  }
+  if(argc == 2 && std::string(argv[1]) == "-h")
+    hoareFlag = true;  
 
+  // make & fill the container
+  std::vector<int> sortMe;
+  int temp;
+  while(std::cin >> temp)
+    sortMe.push_back(temp);
+  
   //sort the container
   int size = sortMe.size();
   quickSort(sortMe, size, hoareFlag);
-
+  
   //print the sorted container, ascending order, '0' padded. (social sec)
-  for(int i = 0; i < size; i++){
+  for(int i = 0; i < size; i++)
     std::cout << std::setw(9) << std::setfill('0') << sortMe[i] << std::endl;
-  }
+  
   return 0;
 }
 
@@ -98,7 +101,7 @@ void quickSortH(vector<int> &A, int left, int right){
 }
 
 int partitionL(vector<int> &A, int left, int right){
-  if(right - left > MEDOF3){ // increase this value to increase median of three,
+  if(right - left > 10){ // increase this value to increase median of three,
     // use 1 or greater, since thats when you have an array of 3 elements
     swap(A, medianOf3(A, left, (left + (right - left)/2), right), right);
   }
@@ -115,7 +118,7 @@ int partitionL(vector<int> &A, int left, int right){
 }
 
 int partitionH(vector<int>& A, int left, int right){
-  if(right - left > 2)
+  if(right - left > 15)
     swap(A, medianOf3(A, left, (left + (right - left)/2), right), left);
   int key = A[left];
   int i = left - 1;

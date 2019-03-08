@@ -1,0 +1,47 @@
+Jon Zivku, jzivku, jonzivku@me.com, README, Quicksort A03
+
+Datasets I used for both Lomuto and Hoare
+2.4M elements, random w/ duplicates
+2.4M elements, random no duplicates
+100k elements, sorted and increasing
+2.4M elements, sorted and increasing
+100k elements, sorted and decreasing
+2.4M elements, sorted and decreasing
+2M elements, first 1M random, second 1M sorted and increasing
+
+All completed sorts were checked for correctness.
+
+medianOf3 was invoked for the following n, left - right > n
+1, 2, 3, 10, 15, 20, 100
+
+Lomuto:
+This did reasonably well (under 3s user time)  for the 2.4M random sets, but took 91s to complete the 100k ascend and 46s to finish 100k descend. The 2M+ sorted/partially sorted sets did not finish (I killed them after 8 mins). Once medianOf3 was implemented, sorts across the board improved in time.
+
+l-r > n
+n   time for all 7 sorts to complete, in seconds
+
+1   12.720
+2   12.655
+3   13.273
+10  12.576
+15  14.289
+20  14.454
+100 17.100
+
+Based on these tests, I chose an n value of 10 for the Lomuto implementation, but it really doesn't seem to matter too much which value you pick, as long as it is low ( <15)
+
+Hoare:
+This one was notable for the fact that without medianOf3 implemented, it finished the 100k sorted datasets in about 17 seconds each, and 2Msplit set in 2.368s. Did not finish the giant sorted sets, but already we're off to a better start. Implementing medianof3 gave great results:
+
+l-r > n
+n   time for all 7 sorts to complete, in seconds
+
+1   12.858
+2   13.444
+3   12.595
+10  13.028
+15  11.826
+20  12.042
+100 12.783
+
+I chose an n value here of 15, but again, the greatest improvements were made from simply implementing medianOf3.
